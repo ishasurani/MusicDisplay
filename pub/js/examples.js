@@ -39,7 +39,7 @@ s.addNote("", "G5", "whole");
 // s.addNote("", "F5", "quarter");
 // s.addNote("", "G5", "quarter");
 
-const s2 = md.makeStaff(300, 500, 800, true);
+const s2 = md.makeStaff(300, 400, 800, true);
 s2.draw();
 s2.addTimeSignature("bass", "4", "4");
 s2.addNote("", "F2", "whole");
@@ -54,9 +54,9 @@ s2.addNote("", "G3", "whole");
 s2.addNote("", "A3", "whole");
 s2.addNote("", "B3", "whole");
 
-const s3 = md.makeStaff(100, 900, 400, false);
+const s3 = md.makeStaff(100, 700, 500, false);
 s3.draw();
-s3.addTimeSignature("treble", "3", "4");
+s3.addTimeSignature("treble", "2", "4");
 s3.addNote("flat", "B4", "whole");
 s3.addNote("flat", "E5", "whole");
 s3.addNote("", "G4", "whole");
