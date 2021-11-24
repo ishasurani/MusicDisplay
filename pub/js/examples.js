@@ -55,10 +55,10 @@ s2.addNote("", "A3", "whole");
 s2.addNote("", "B3", "whole");
 
 const s3 = md.makeStaff(100, 900, 400, false);
-s.draw();
-s.addTimeSignature("treble", "3", "4");
-s.addNote("flat", "B4", "whole");
-s.addNote("flat", "E5", "whole");
-s.addNote("", "G4", "whole");
-s.addNote("flat", "A4", "whole");
-s.addNote("", "C5", "whole");
+s3.draw();
+s3.addTimeSignature("treble", "3", "4");
+s3.addNote("flat", "B4", "whole");
+s3.addNote("flat", "E5", "whole");
+s3.addNote("", "G4", "whole");
+s3.addNote("flat", "A4", "whole");
+s3.addNote("", "C5", "whole");
