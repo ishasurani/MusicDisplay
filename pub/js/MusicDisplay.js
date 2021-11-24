@@ -122,7 +122,7 @@ class Note{
                 context.fillText(note, x + where[0] + 20, y + where[1]);
             }
             else if (this.length == "whole"){
-                const note = "𝅝";
+                const note = "\uD834\uDD5D";
                 context.font = '75px Arial';
                 context.fillText(note, x + where[0] + 20, y + where[1]);
             }
@@ -159,7 +159,7 @@ class Note{
             }
             else if (this.length == "whole"){
                 context.font = '75px Arial';
-                const note = "𝅝";
+                const note = "\uD834\uDD5D";
                 context.fillText(note, x + where[0] + 20, y + where[1]);
             }                         
         }
