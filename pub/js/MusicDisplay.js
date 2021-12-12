@@ -7,8 +7,8 @@ class MusicDisplay {
         this.click = [];
     }
 
-    makeStaff(x, y, length, clicked) {
-        const s = new Staff(x, y, length);
+    makeStaff(clef, x, y, length, clicked) {
+        const s = new Staff(clef, x, y, length);
         this.staves.push(s);
         if (clicked){
             this.click.push(s);
@@ -49,26 +49,32 @@ class MusicDisplay {
 }
 
 class Staff {
-	constructor(x, y, length) {
+	constructor(clef, x, y, length) {
 		this.x = x
 		this.y = y
         this.length = length
-        this.currPosition = 0
-        this.clef = "";
+        this.currPosition = 10;
+        this.clef = clef;
         this.notes = [];
 	}
 
 	addNote(fs, note, length) {
 		const newNote = new Note(this.clef, fs, note, length);
         newNote.draw(this.x, this.y, this.currPosition);
-        this.currPosition += 1;
+        this.currPosition += 60;
         this.notes.push(newNote);
 	}
 
-    addTimeSignature(clef, top, bottom){
-        this.clef = clef;
-        const ts = new TimeSignature(clef, top, bottom);
+    addTimeSignature(top, bottom){
+        const ts = new TimeSignature(this.clef, top, bottom, this.currPosition);
         ts.draw(this.x, this.y);
+        this.currPosition += 120;
+    }
+
+    addKeySignature(notes) { // a list of notes like: [E4b, C3#, B3b]
+        const ks = new KeySignature(this.clef, notes);
+        ks.draw(this.x, this.y);
+        this.currPosition += 20*(notes.length);
     }
 
     draw(){
@@ -90,6 +96,20 @@ class Staff {
         context.lineTo(this.x + this.length, this.y + 80);
         context.stroke();
         context.closePath();
+        context.font = '120px Arial';
+        if (this.clef == "treble"){
+            const clef = "\uD834\uDD1E";
+            context.fillText(clef, this.x + 5, this.y + 80);
+        }
+        else if (this.clef == "bass"){
+            context.font = '100px Arial';
+            const clef = "\uD834\uDD22";
+            context.fillText(clef, this.x + 5, this.y + 80);
+        }
+        else if (this.clef == "c"){
+            const clef = "\uD834\uDD21";
+            context.fillText(clef, this.x + 5, this.y + 80);
+        }
     }
 
 }
@@ -122,7 +142,7 @@ class Note{
                 context.fillText(note, x + where[0] + 20, y + where[1]);
             }
             else if (this.length == "whole"){
-                const note = "\uD834\uDD5D";
+                const note = "\u{1D15D}";
                 context.font = '75px Arial';
                 context.fillText(note, x + where[0] + 20, y + where[1]);
             }
@@ -159,7 +179,7 @@ class Note{
             }
             else if (this.length == "whole"){
                 context.font = '75px Arial';
-                const note = "\uD834\uDD5D";
+                const note = "\u{1D15D}";
                 context.fillText(note, x + where[0] + 20, y + where[1]);
             }                         
         }
@@ -167,8 +187,66 @@ class Note{
     }
 }
 
+class TimeSignature{
+    constructor(clef, top, bottom, position){
+        this.clef = clef;
+        this.top = top;
+        this.bottom = bottom;
+        this.position = position;
+    }
+
+    draw(x, y){
+        const canvas = document.getElementById('canvas1');
+        const context = canvas.getContext('2d');
+        // context.font = '120px Arial';
+        // if (this.clef == "treble"){
+        //     const clef = "\uD834\uDD1E";
+        //     context.fillText(clef, x + 5, y + 80);
+        // }
+        // else if (this.clef == "bass"){
+        //     context.font = '100px Arial';
+        //     const clef = "\uD834\uDD22";
+        //     context.fillText(clef, x + 5, y + 80);
+        // }
+        // else if (this.clef == "c"){
+        //     const clef = "\uD834\uDD21";
+        //     context.fillText(clef, x + 5, y + 80);
+        // }
+        context.font = 'bold 54px serif';
+        context.fillText(this.top, x + 80 + this.position, y + 38);
+        context.fillText(this.bottom, x + 80 + this.position, y + 78);
+    }
+}
+
+
+class KeySignature{
+    constructor(clef, notes){
+        this.clef = clef;
+        this.notes = notes;
+    }
+    draw(x, y){
+        const canvas = document.getElementById('canvas1');
+        const context = canvas.getContext('2d');
+        context.font = '40px Arial';
+        var pos = 0;
+        var clef = this.clef
+        this.notes.forEach(function (note){
+            const where = findNotePosition(clef, note.slice(0,2), 80);
+            if (note.slice(2) == "#"){
+                const sharp = "\u266F";
+                context.fillText(sharp, where[0] + pos + x, where[1] + y);
+            }
+            else if (note.slice(2) == "b"){
+                const flat = "\u266D";
+                context.fillText(flat, where[0] + pos + x, where[1] + y);
+            }
+            pos += 20;
+        }); 
+    }
+}
+
+
 function findNotePosition(clef, note, position){
-    position = 130 + position*60;
     if (clef == "treble"){
         if (note == "D4"){
             return [position, 98];
@@ -256,34 +334,3 @@ function findNotePosition(clef, note, position){
         }
     }
 }
-
-class TimeSignature{
-    constructor(clef, top, bottom){
-        this.clef = clef;
-        this.top = top;
-        this.bottom = bottom;
-    }
-
-    draw(x, y){
-        const canvas = document.getElementById('canvas1');
-        const context = canvas.getContext('2d');
-        context.font = '120px Arial';
-        if (this.clef == "treble"){
-            const clef = "\uD834\uDD1E";
-            context.fillText(clef, x + 5, y + 80);
-        }
-        else if (this.clef == "bass"){
-            context.font = '100px Arial';
-            const clef = "\uD834\uDD22";
-            context.fillText(clef, x + 5, y + 80);
-        }
-        else if (this.clef == "c"){
-            const clef = "\uD834\uDD21";
-            context.fillText(clef, x + 5, y + 80);
-        }
-        context.font = 'bold 54px serif';
-        context.fillText(this.top, x + 80, y + 38);
-        context.fillText(this.bottom, x + 80, y + 78);
-    }
-}
-
