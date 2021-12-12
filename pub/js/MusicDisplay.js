@@ -127,6 +127,7 @@ class Note{
         const canvas = document.getElementById('canvas1');
         const context = canvas.getContext('2d');
         context.font = '40px Arial';
+        context.fillStyle = 'black';
         const where = findNotePosition(this.clef, this.note, position);
         if (this.fs == "sharp"){
             const sharp = "\u266F";
@@ -142,9 +143,22 @@ class Note{
                 context.fillText(note, x + where[0] + 20, y + where[1]);
             }
             else if (this.length == "whole"){
-                const note = "\u{1D15D}";
                 context.font = '75px Arial';
-                context.fillText(note, x + where[0] + 20, y + where[1]);
+                context.beginPath();
+                context.moveTo (x + where[0] + 35, y + where[1] - 16);
+                context.quadraticCurveTo (x + where[0] + 48, y + where[1] - 15, x + where[0] + 48, y + where[1] - 8);
+                context.quadraticCurveTo (x + where[0] + 48, y + where[1], x + where[0] + 35, y + where[1]);
+                context.quadraticCurveTo (x + where[0] + 22, y + where[1], x + where[0] + 22, y + where[1] - 8);
+                context.quadraticCurveTo (x + where[0] + 22, y + where[1] - 15, x + where[0] + 35, y + where[1] - 16);
+                context.fill()
+                context.fillStyle = 'white';
+                context.beginPath();
+                context.moveTo (x + where[0] + 35, y + where[1] - 14);
+                context.quadraticCurveTo (x + where[0] + 43, y + where[1] - 13, x + where[0] + 43, y + where[1] - 8);
+                context.quadraticCurveTo (x + where[0] + 43, y + where[1] - 2, x + where[0] + 35, y + where[1] - 2);
+                context.quadraticCurveTo (x + where[0] + 28, y + where[1] - 2, x + where[0] + 27, y + where[1] - 8);
+                context.quadraticCurveTo (x + where[0] + 28, y + where[1] - 13, x + where[0] + 35, y + where[1] - 14);
+                context.fill();
             }
         }
         else if (this.fs == "flat"){
@@ -162,8 +176,21 @@ class Note{
             }
             else if (this.length == "whole"){
                 context.font = '75px Arial';
-                const note = "𝅝";
-                context.fillText(note, x + where[0] + 20, y + where[1]);
+                context.beginPath();
+                context.moveTo (x + where[0] + 35, y + where[1] - 16);
+                context.quadraticCurveTo (x + where[0] + 48, y + where[1] - 15, x + where[0] + 48, y + where[1] - 8);
+                context.quadraticCurveTo (x + where[0] + 48, y + where[1], x + where[0] + 35, y + where[1]);
+                context.quadraticCurveTo (x + where[0] + 22, y + where[1], x + where[0] + 22, y + where[1] - 8);
+                context.quadraticCurveTo (x + where[0] + 22, y + where[1] - 15, x + where[0] + 35, y + where[1] - 16);
+                context.fill()
+                context.fillStyle = 'white';
+                context.beginPath();
+                context.moveTo (x + where[0] + 35, y + where[1] - 14);
+                context.quadraticCurveTo (x + where[0] + 43, y + where[1] - 13, x + where[0] + 43, y + where[1] - 8);
+                context.quadraticCurveTo (x + where[0] + 43, y + where[1] - 2, x + where[0] + 35, y + where[1] - 2);
+                context.quadraticCurveTo (x + where[0] + 28, y + where[1] - 2, x + where[0] + 27, y + where[1] - 8);
+                context.quadraticCurveTo (x + where[0] + 28, y + where[1] - 13, x + where[0] + 35, y + where[1] - 14);
+                context.fill();
             }                          
         }
         else {
@@ -179,8 +206,21 @@ class Note{
             }
             else if (this.length == "whole"){
                 context.font = '75px Arial';
-                const note = "𝅝";
-                context.fillText(note, x + where[0] + 20, y + where[1]);
+                context.beginPath();
+                context.moveTo (x + where[0] + 35, y + where[1] - 16);
+                context.quadraticCurveTo (x + where[0] + 48, y + where[1] - 15, x + where[0] + 48, y + where[1] - 8);
+                context.quadraticCurveTo (x + where[0] + 48, y + where[1], x + where[0] + 35, y + where[1]);
+                context.quadraticCurveTo (x + where[0] + 22, y + where[1], x + where[0] + 22, y + where[1] - 8);
+                context.quadraticCurveTo (x + where[0] + 22, y + where[1] - 15, x + where[0] + 35, y + where[1] - 16);
+                context.fill()
+                context.fillStyle = 'white';
+                context.beginPath();
+                context.moveTo (x + where[0] + 35, y + where[1] - 14);
+                context.quadraticCurveTo (x + where[0] + 43, y + where[1] - 13, x + where[0] + 43, y + where[1] - 8);
+                context.quadraticCurveTo (x + where[0] + 43, y + where[1] - 2, x + where[0] + 35, y + where[1] - 2);
+                context.quadraticCurveTo (x + where[0] + 28, y + where[1] - 2, x + where[0] + 27, y + where[1] - 8);
+                context.quadraticCurveTo (x + where[0] + 28, y + where[1] - 13, x + where[0] + 35, y + where[1] - 14);
+                context.fill();
             }                         
         }
         this.pos = [x + where[0] + 20, y + where[1]];
