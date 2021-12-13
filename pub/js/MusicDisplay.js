@@ -77,6 +77,36 @@ class Staff {
         this.currPosition += 20*(notes.length);
     }
 
+    addBarLine(){
+        const canvas = document.getElementById('canvas1'); 
+        const context = canvas.getContext('2d');
+        this.currPosition += 10;
+        context.beginPath();
+        context.moveTo(this.x + this.currPosition, this.y);
+        context.lineTo(this.x + this.currPosition, this.y + 80);
+        context.stroke();
+        context.closePath();
+    }
+
+    addRest(length){
+        const canvas = document.getElementById('canvas1'); 
+        const context = canvas.getContext('2d');
+        context.fillStyle = 'black';
+        this.currPosition += 20;
+        if (length == "whole"){
+            context.fillRect(this.x + this.currPosition, this.y + 40, 20, 10);
+        }
+        else if (length == "half"){
+            context.fillRect(this.x + this.currPosition, this.y + 40, 20, -10);
+        }
+        else if (length = "quarter"){
+            context.font = '75px Arial';
+            const rest = "\uD834\uDD3D";
+            context.fillText(rest, this.x + this.currPosition, this.y + 70);
+        }
+        this.currPosition += 30;
+    }
+
     draw(){
         const canvas = document.getElementById('canvas1'); 
         const context = canvas.getContext('2d');
@@ -126,12 +156,12 @@ class Note{
     draw(x, y, position){
         const canvas = document.getElementById('canvas1');
         const context = canvas.getContext('2d');
-        context.font = '40px Arial';
+        context.font = '35px Arial';
         context.fillStyle = 'black';
         const where = findNotePosition(this.clef, this.note, position);
         if (this.fs == "sharp"){
             const sharp = "\u266F";
-            context.fillText(sharp, x + where[0], y + where[1]);
+            context.fillText(sharp, x + where[0] + 5, y + where[1]);
             if (this.length == "quarter"){
                 const note = "\uD834\uDD5F";
                 context.font = '75px Arial';
@@ -162,8 +192,9 @@ class Note{
             }
         }
         else if (this.fs == "flat"){
+            context.font = '40px Arial';
             const flat = "\u266D";
-            context.fillText(flat, x + where[0], y + where[1]);
+            context.fillText(flat, x + where[0] + 5, y + where[1]);
             if (this.length == "quarter"){
                 context.font = '75px Arial';
                 const note = "\uD834\uDD5F";
@@ -191,6 +222,7 @@ class Note{
                 context.quadraticCurveTo (x + where[0] + 28, y + where[1] - 2, x + where[0] + 27, y + where[1] - 8);
                 context.quadraticCurveTo (x + where[0] + 28, y + where[1] - 13, x + where[0] + 35, y + where[1] - 14);
                 context.fill();
+                context.fillStyle = 'black';
             }                          
         }
         else {
@@ -223,6 +255,58 @@ class Note{
                 context.fill();
             }                         
         }
+        if (100 < where[1]){
+            context.beginPath();
+            if (this.fs == "flat" || this.fs == "sharp"){
+                context.moveTo(x + where[0], y + 100);
+                context.lineTo(x + where[0] + 60, y + 100);
+            }
+            else{
+                context.moveTo(x + where[0] + 10, y + 100);
+                context.lineTo(x + where[0] + 55, y + 100);
+            }
+            context.stroke();
+            context.closePath();
+        }
+        if (where[1] > 120){
+            context.beginPath();
+            if (this.fs == "flat" || this.fs == "sharp"){
+                context.moveTo(x + where[0], y + 120);
+                context.lineTo(x + where[0] + 60, y + 120);
+            }
+            else{
+                context.moveTo(x + where[0] + 10, y + 120);
+                context.lineTo(x + where[0] + 55, y + 120);
+            }
+            context.stroke();
+            context.closePath();
+        }
+        if (where[1] < -10){
+            context.beginPath();
+            if (this.fs == "flat" || this.fs == "sharp"){
+                context.moveTo(x + where[0], y - 20);
+                context.lineTo(x + where[0] + 60, y - 20);
+            }
+            else{
+                context.moveTo(x + where[0] + 10, y - 20);
+                context.lineTo(x + where[0] + 55, y - 20);
+            }
+            context.stroke();
+            context.closePath();
+        }
+        if (where[1] < -30){
+            context.beginPath();
+            if (this.fs == "flat" || this.fs == "sharp"){
+                context.moveTo(x + where[0], y - 40);
+                context.lineTo(x + where[0] + 60, y - 40);
+            }
+            else{
+                context.moveTo(x + where[0] + 10, y - 40);
+                context.lineTo(x + where[0] + 55, y - 40);
+            }
+            context.stroke();
+            context.closePath();
+        }
         this.pos = [x + where[0] + 20, y + where[1]];
     }
 }
@@ -238,20 +322,6 @@ class TimeSignature{
     draw(x, y){
         const canvas = document.getElementById('canvas1');
         const context = canvas.getContext('2d');
-        // context.font = '120px Arial';
-        // if (this.clef == "treble"){
-        //     const clef = "\uD834\uDD1E";
-        //     context.fillText(clef, x + 5, y + 80);
-        // }
-        // else if (this.clef == "bass"){
-        //     context.font = '100px Arial';
-        //     const clef = "\uD834\uDD22";
-        //     context.fillText(clef, x + 5, y + 80);
-        // }
-        // else if (this.clef == "c"){
-        //     const clef = "\uD834\uDD21";
-        //     context.fillText(clef, x + 5, y + 80);
-        // }
         context.font = 'bold 54px serif';
         context.fillText(this.top, x + 80 + this.position, y + 38);
         context.fillText(this.bottom, x + 80 + this.position, y + 78);
@@ -274,7 +344,7 @@ class KeySignature{
             const where = findNotePosition(clef, note.slice(0,2), 80);
             if (note.slice(2) == "#"){
                 const sharp = "\u266F";
-                context.fillText(sharp, where[0] + pos + x, where[1] + y);
+                context.fillText(sharp, where[0] + pos + x, where[1] + y + 4);
             }
             else if (note.slice(2) == "b"){
                 const flat = "\u266D";
@@ -288,6 +358,18 @@ class KeySignature{
 
 function findNotePosition(clef, note, position){
     if (clef == "treble"){
+        // need to add an additional line for note to sit on
+        if (note == "A3"){
+            return [position, 128];
+        }
+        if (note == "B3"){
+            return [position, 118];
+        }
+        if (note == "C4"){
+            return [position, 108];
+        }
+
+        //no additional line needed
         if (note == "D4"){
             return [position, 98];
         }
@@ -329,8 +411,42 @@ function findNotePosition(clef, note, position){
             return [position, -2];
             
         }
+
+        //need to add an additional line for notes to sit on
+        else if (note == "A5"){
+            return [position, -12];
+            
+        }
+        else if (note == "B5"){
+            return [position, -22];
+            
+        }
+        else if (note == "C6"){
+            return [position, -32];
+            
+        }
+        else if (note == "D6"){
+            return [position, -42];
+            
+        }
+
     }
     if (clef == "bass"){
+        // need to add an additional line for note to sit on
+        if (note == "B1"){
+            return [position, 138];
+        }
+        if (note == "C2"){
+            return [position, 128];
+        }
+        if (note == "D2"){
+            return [position, 118];
+        }
+        if (note == "E2"){
+            return [position, 108];
+        }
+
+        //no additional line needed
         if (note == "F2"){
             return [position, 98];
         }
@@ -370,6 +486,20 @@ function findNotePosition(clef, note, position){
         }
         else if (note == "B3"){
             return [position, -2];
+            
+        }
+
+        //need to add an additional line for notes to sit on
+        else if (note == "C4"){
+            return [position, -12];
+            
+        }
+        else if (note == "D4"){
+            return [position, -22];
+            
+        }
+        else if (note == "E4"){
+            return [position, -32];
             
         }
     }
