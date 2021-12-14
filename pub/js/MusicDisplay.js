@@ -32,6 +32,7 @@ class MusicDisplay {
                 function(note){
                     if ((pos.x >= note.pos[0] && pos.x <= note.pos[0] + 40) && (pos.y >= note.pos[1] - 40 && pos.y <= note.pos[1])){
                         context.font = '20px Arial';
+                        context.fillStyle = 'black';
                         if (note.fs == "sharp"){
                             context.fillText(note.note + "#", note.pos[0], staff.y - 40);
                         } 
@@ -81,6 +82,7 @@ class Staff {
         const canvas = document.getElementById('canvas1'); 
         const context = canvas.getContext('2d');
         this.currPosition += 10;
+        context.lineWidth = 2;
         context.beginPath();
         context.moveTo(this.x + this.currPosition, this.y);
         context.lineTo(this.x + this.currPosition, this.y + 80);
@@ -101,8 +103,16 @@ class Staff {
         }
         else if (length = "quarter"){
             context.font = '75px Arial';
-            const rest = "\uD834\uDD3D";
-            context.fillText(rest, this.x + this.currPosition, this.y + 70);
+            // const rest = "\uD834\uDD3D";
+            context.lineWidth = 4;
+            context.beginPath();
+            context.moveTo(this.x + this.currPosition + 2, this.y + 72);
+            context.quadraticCurveTo(this.x + this.currPosition - 12, this.y + 53, this.x + this.currPosition + 10, this.y + 58);
+            context.quadraticCurveTo(this.x + this.currPosition - 10, this.y + 37, this.x + this.currPosition + 5, this.y + 33);
+            context.quadraticCurveTo( this.x + this.currPosition + 13, this.y + 30, this.x + this.currPosition, this.y + 15);
+            // context.fillText(rest, this.x + this.currPosition - 40, this.y + 70);
+            context.stroke();
+            context.closePath();
         }
         this.currPosition += 30;
     }
@@ -112,7 +122,7 @@ class Staff {
         const context = canvas.getContext('2d');
         context.fillStyle = 'black';
         context.strokeStyle = 'black';
-        context.lineWidth = 3;
+        context.lineWidth = 2;
         context.beginPath();
         context.moveTo(this.x, this.y);
         context.lineTo(this.x + this.length, this.y);
@@ -136,10 +146,10 @@ class Staff {
             const clef = "\uD834\uDD22";
             context.fillText(clef, this.x + 5, this.y + 80);
         }
-        else if (this.clef == "c"){
-            const clef = "\uD834\uDD21";
-            context.fillText(clef, this.x + 5, this.y + 80);
-        }
+        // else if (this.clef == "c"){
+        //     const clef = "\uD834\uDD21";
+        //     context.fillText(clef, this.x + 5, this.y + 80);
+        // }
     }
 
 }
@@ -160,6 +170,7 @@ class Note{
         context.fillStyle = 'black';
         const where = findNotePosition(this.clef, this.note, position);
         if (this.fs == "sharp"){
+            context.font = '35px Arial';
             const sharp = "\u266F";
             context.fillText(sharp, x + where[0] + 5, y + where[1]);
             if (this.length == "quarter"){
@@ -193,8 +204,17 @@ class Note{
         }
         else if (this.fs == "flat"){
             context.font = '40px Arial';
-            const flat = "\u266D";
-            context.fillText(flat, x + where[0] + 5, y + where[1]);
+            // const flat = "\u266D";
+            context.fillStyle = 'black';
+            context.lineWidth = 2.5;
+            context.beginPath();
+            context.moveTo(x + where[0] + 5, y + where[1] - 30);
+            context.lineTo(x + where[0] + 5, y + where[1]);
+            context.quadraticCurveTo(x + where[0] + 15, y + where[1] - 2, x + where[0] + 15, y + where[1] - 8);
+            context.quadraticCurveTo(x + where[0] + 12, y + where[1] - 15, x + where[0] + 5, y + where[1] - 10);
+            context.stroke();
+            context.closePath();
+            // context.fillText(flat, x + where[0] + 5, y + where[1]);
             if (this.length == "quarter"){
                 context.font = '75px Arial';
                 const note = "\uD834\uDD5F";
@@ -256,6 +276,7 @@ class Note{
             }                         
         }
         if (100 < where[1]){
+            context.lineWidth = 2;
             context.beginPath();
             if (this.fs == "flat" || this.fs == "sharp"){
                 context.moveTo(x + where[0], y + 100);
@@ -269,6 +290,7 @@ class Note{
             context.closePath();
         }
         if (where[1] > 120){
+            context.lineWidth = 2;
             context.beginPath();
             if (this.fs == "flat" || this.fs == "sharp"){
                 context.moveTo(x + where[0], y + 120);
@@ -282,6 +304,7 @@ class Note{
             context.closePath();
         }
         if (where[1] < -10){
+            context.lineWidth = 2;
             context.beginPath();
             if (this.fs == "flat" || this.fs == "sharp"){
                 context.moveTo(x + where[0], y - 20);
@@ -295,6 +318,7 @@ class Note{
             context.closePath();
         }
         if (where[1] < -30){
+            context.lineWidth = 2;
             context.beginPath();
             if (this.fs == "flat" || this.fs == "sharp"){
                 context.moveTo(x + where[0], y - 40);
@@ -347,8 +371,17 @@ class KeySignature{
                 context.fillText(sharp, where[0] + pos + x, where[1] + y + 4);
             }
             else if (note.slice(2) == "b"){
-                const flat = "\u266D";
-                context.fillText(flat, where[0] + pos + x, where[1] + y);
+                // const flat = "\u266D";
+                // context.fillText(flat, where[0] + pos + x, where[1] + y);
+                context.fillStyle = 'black';
+                context.lineWidth = 2.5;
+                context.beginPath();
+                context.moveTo(x + where[0] + 5 + pos, y + where[1] - 30);
+                context.lineTo(x + where[0] + 5 + pos, y + where[1]);
+                context.quadraticCurveTo(x + where[0] + 15 + pos, y + where[1] - 2, x + where[0] + 15 + pos, y + where[1] - 8);
+                context.quadraticCurveTo(x + where[0] + 12 + pos, y + where[1] - 15, x + where[0] + 5 + pos, y + where[1] - 10);
+                context.stroke();
+                context.closePath();
             }
             pos += 20;
         }); 
