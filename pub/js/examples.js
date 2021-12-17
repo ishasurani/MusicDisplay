@@ -1,6 +1,6 @@
 "use strict";
 const md = new MusicDisplay();
-const s = md.makeStaff("treble", 100, 100, 1200, true);
+const s = md.makeStaff("treble", 100, 100, 1200, "both");
 s.addKeySignature(["B4b", "E5b"]);
 s.addTimeSignature("3", "4");
 s.addNote("", "A3", "whole");
@@ -25,7 +25,7 @@ s.addNote("", "C6", "whole");
 s.addNote("flat", "D6", "whole");
 s.draw();
 
-const s2 = md.makeStaff("bass", 300, 400, 800, true);
+const s2 = md.makeStaff("bass", 300, 400, 800, "click");
 s2.addKeySignature(["C3#", "F3#"]);
 s2.addTimeSignature("4", "4");
 s2.addNote("", "F2", "whole");
@@ -41,7 +41,7 @@ s2.addNote("", "A3", "whole");
 s2.addNote("", "B3", "whole");
 s2.draw();
 
-const s3 = md.makeStaff("treble", 100, 700, 500, false);
+const s3 = md.makeStaff("treble", 100, 700, 500, "hover");
 s3.addTimeSignature("2", "4");
 s3.addNote("flat", "B4", "whole");
 s3.addNote("flat", "E5", "quarter");
