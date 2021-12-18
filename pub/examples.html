@@ -7,9 +7,116 @@
                 <link rel="stylesheet" href="styles.css">
 	</head>
 	<body>
-        <h1>MusicDisplay</h1>
-        <span>Below are three staves showing what the MusicDisplay library can do so far.</span>
-        <span>Click a note, to see the note name! (the third staff has this feature disabled)</span>
-        <div id="example"></div>
+                <div id="examplesPage">
+                        <h1 id="examplesTitle">MusicDisplay</h1>
+                </div>
+                <div class="tab">
+                        <button class="tablinks" onclick="openTab(event, 'div1')" id= "default">Example 1</button>
+                        <button class="tablinks" onclick="openTab(event, 'div2')">Example 2</button>
+                        <button class="tablinks" onclick="openTab(event, 'div3')">Example 3</button>
+                </div>
+                <div id="div1" class="tabcontent">
+                        <h2 class="exampleTitles">Example 1</h2>
+                        <div class="code">
+                                <p>
+                                        const md = new MusicDisplay('div1');
+                                        <br>const s = md.makeStaff("treble", 600, 150, 740, "both", true, true);
+                                        <br>s.addKeySignature(["B4b", "E5b"]);
+                                        <br>s.addTimeSignature("4", "4");
+                                        <br>s.addNote("", "B3", "quarter");
+                                        <br>s.addNote("", "C4", "quarter");
+                                        <br>s.addNote("", "D4", "quarter");
+                                        <br>s.addNote("", "E4", "quarter");
+                                        <br>s.addBarLine();
+                                        <br>s.addNote("", "F4", "quarter");
+                                        <br>s.addNote("", "G4", "quarter");
+                                        <br>s.addNote("", "A4", "quarter");
+                                        <br>s.addNote("", "B4", "quarter");
+                                        <br>s.addBarLine();
+                                        <br>s.addRest("whole");
+                                        <br>s.addDoubleBarLine();
+                                        <br>s.draw()
+                                </p>
+                        </div>
+                        <p id="description1">In the example above, a note name will be displayed while the note is hovered over.
+                                <br> When clicked on, the note name will be displayed, and the note name can be removed by clicking the note again.
+                                <br> All the note names can be displayed by clicking show notes and all of them can be removed by clicking hide notes.
+                                <br> When clicked on, the note will be played. (note: sometimes the first note you choose to click on doesn't play, try again if this happens)
+                        </p>
+                </div>
+                <div id="div2" class="tabcontent">
+                        <h2 class="exampleTitles">Example 2</h2>
+                        <div class="code">
+                                <p>
+                                        const md2 = new MusicDisplay('div2');
+                                        <br>const s2 = md2.makeStaff("treble", 570, 150, 885, "hover", true, true);
+                                        <br>s2.addKeySignature(["C5#", "F5#"]);
+                                        <br>s2.addTimeSignature("2", "4");
+                                        <br>s2.addNote("", "D5", "quarter");
+                                        <br>s2.addNote("", "D5", "quarter");
+                                        <br>s2.addBarLine();
+                                        <br>s2.addNote("", "A5", "quarter");
+                                        <br>s2.addNote("", "A5", "quarter");
+                                        <br>s2.addBarLine();
+                                        <br>s2.addNote("", "B5", "quarter");
+                                        <br>s2.addNote("", "B5", "quarter");
+                                        <br>s2.addBarLine();
+                                        <br>s2.addNote("", "A5", "half");
+                                        <br>s2.addBarLine();
+                                        <br>s2.addNote("", "G5", "quarter");
+                                        <br>s2.addNote("", "G5", "quarter");
+                                        <br>s2.addBarLine();
+                                        <br>s2.addNote("", "F5", "quarter");
+                                        <br>s2.addNote("", "F5", "quarter");
+                                        <br>s2.addBarLine();
+                                        <br>s2.draw()
+                                        <br>const md3 = new MusicDisplay('div2');
+                                        <br>const s3 = md3.makeStaff("treble", 570, 420, 440, "hover", true, true);
+                                        <br>s3.addKeySignature(["C5#", "F5#"]);
+                                        <br>s3.addTimeSignature("2", "4");
+                                        <br>s3.addNote("", "E5", "quarter");
+                                        <br>s3.addNote("", "E5", "quarter");
+                                        <br>s3.addBarLine();
+                                        <br>s3.addNote("", "D5", "half");
+                                        <br>s3.addBarLine();
+                                        <br>s3.addRest("half");
+                                        <br>s3.addDoubleBarLine();
+                                        <br>s3.draw();
+                                </p>
+                        </div>
+                        <p id="description2">
+                                In the example above, a note name will be displayed only while the note is hovered over.
+                                <br> The note name will not be displayed when clicked on.
+                                <br> All the note names can be displayed by clicking show notes and all of them can be removed by clicking hide notes.
+                                <br> When clicked on, the note will be played. (note: sometimes the first note you choose to click on doesn't play, try again if this happens)
+                        </p>
+                </div>
+                <div id="div3" class="tabcontent">
+                        <h2 class="exampleTitles">Example 3</h2>
+                        <div class="code">
+                                <p>
+                                        const md4 = new MusicDisplay('div3');
+                                        <br>const s4 = md4.makeStaff("bass", 600, 180, 580, "click", false, false);
+                                        <br>s4.addTimeSignature("4", "4");
+                                        <br>s4.addNote("flat", "B3", "whole");
+                                        <br>s4.addBarLine();
+                                        <br>s4.addNote("flat", "E3", "half");
+                                        <br>s4.addNote("flat", "A3", "quarter");
+                                        <br>s4.addRest("quarter");
+                                        <br>s4.addBarLine();
+                                        <br>s4.addNote("", "G3", "half");
+                                        <br>s4.addRest("half");
+                                        <br>s4.addBarLine();
+                                        <br>s4.addNote("", "C3", "whole");
+                                        <br>s4.addDoubleBarLine();
+                                        <br>s4.draw();
+                                </p>
+                        </div>
+                        <p id="description3">
+                                <br> In the example above, a note name will be displayed only when clicked on.
+                                <br> The Show All and Hide All button feature is off and the playing notes out loud feature is off.
+                        </p>
+                </div>
+                <div id="example"></div>
 	</body>
 </html>

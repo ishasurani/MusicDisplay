@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "documentation": "^13.2.5",
     "express": "^4.16.4"
   }
 }

@@ -3,6 +3,17 @@
     font-size: 50px;
 }
 
+#examplesTitle{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 30px;
+    text-align: center;
+}
+
+#examplesPage{
+    background-color: mediumturquoise;
+    padding: 1px;
+}
+
 .button1{
     padding: 10px;
     /* background-color: #008CBA; */
@@ -36,4 +47,76 @@
 
 #buttons{
     padding-top:40px;
+}
+
+body{
+    margin: 0px;
+}
+
+.tab {
+    overflow: hidden;
+    border: 1px grey;
+    background-color: dimgrey;
+  }
+  
+  .tab button {
+    background-color: dimgrey;
+    color: white;
+    float: left;
+    border: none;
+    cursor: pointer;
+    padding: 15px;
+    font-size: 15px;
+  }
+  
+  .tab button:hover {
+    background-color: darkgray;
+  }
+  
+  .tab button.active {
+    background-color: darkgray;
+  }
+  
+  .tabcontent {
+    padding-left: 20px;
+    padding-top: 5px;
+  }
+  
+  .code{
+    background-color: rgb(188, 233, 233);
+    font-family: sans-serif;
+    float: left;
+    padding-left: 15px;
+    padding-right: 15px;
+    line-height: 140%;
+    margin-bottom: 20px;
+    border-radius: 10px;
+  }
+
+  .exampleTitles{
+    font-family: sans-serif;
+  }
+
+  #description1{
+      position: absolute;
+      top: 450px;
+      left: 600px;
+      font-family: sans-serif;
+      line-height: 130%;
+  }
+
+  #description2{
+    position: absolute;
+    top: 720px;
+    left: 600px;
+    font-family: sans-serif;
+    line-height: 130%;
+}
+
+#description3{
+    position: absolute;
+    top: 380px;
+    left: 600px;
+    font-family: sans-serif;
+    line-height: 130%;
 }
