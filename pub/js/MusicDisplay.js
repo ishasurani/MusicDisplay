@@ -4,7 +4,7 @@ const log = console.log;
 (function(global, document, $) { 
 
     function _checkNoteClicked(md, e){
-        const canvas = document.getElementById(md.canvas);
+        const canvas = md.canvas;
         const context = canvas.getContext('2d');
         const r = canvas.getBoundingClientRect();
         const pos = {
@@ -41,7 +41,7 @@ const log = console.log;
     }
 
     function _checkHovered(md, e){   
-        const canvas = document.getElementById(md.canvas);
+        const canvas = md.canvas;
         const context = canvas.getContext('2d');
         const r = canvas.getBoundingClientRect();
         const pos = {
@@ -77,38 +77,41 @@ const log = console.log;
     }
 
     class MusicDisplay {
-        constructor(canvas) {
+        constructor() {
             this.staves = [];
             this.click = [];
             this.hover = [];
-            this.canvas = canvas;
+            this.canvas = document.createElement('canvas');
+            const div = document.getElementById('example');
+            div.appendChild(this.canvas);
         }
 
-        makeStaff(clef, x, y, length, method) {
-            const s = new Staff(clef, x, y, length, this.canvas);
+        makeStaff(clef, x, y, length, method, ShowHideButton) {
+            this.canvas.width = length + 20;
+            this.canvas.height = 300;
+            this.canvas.style.position = "absolute";
+            this.canvas.style.left = x + "px";
+            this.canvas.style.top = y + 20 + "px";
+            const s = new Staff(clef, 0, 0, length, this.canvas, ShowHideButton);
             this.staves.push(s);
             if (method == "click"){
                 if (this.click.length == 0){
-                    const canvas = document.getElementById(this.canvas);
-                    canvas.addEventListener('click', _checkNoteClicked.bind(null, this));
+                    this.canvas.addEventListener('click', _checkNoteClicked.bind(null, this));
                 }
                 this.click.push(s);
             }
             else if (method == "hover") {
                 if (this.hover.length == 0){
-                    const canvas = document.getElementById(this.canvas);
-                    canvas.addEventListener("mousemove", _checkHovered.bind(null, this));
+                    this.canvas.addEventListener("mousemove", _checkHovered.bind(null, this));
                 }
                 this.hover.push(s);
             }
             else if (method == "both"){
                 if (this.click.length == 0){
-                    const canvas = document.getElementById(this.canvas);
-                    canvas.addEventListener('click', _checkNoteClicked.bind(null, this));
+                    this.canvas.addEventListener('click', _checkNoteClicked.bind(null, this));
                 }
                 if (this.hover.length == 0){
-                    const canvas = document.getElementById(this.canvas);
-                    canvas.addEventListener("mousemove", _checkHovered.bind(null, this));
+                    this.canvas.addEventListener("mousemove", _checkHovered.bind(null, this));
                 }
                 this.click.push(s);
                 this.hover.push(s);
@@ -118,14 +121,31 @@ const log = console.log;
     }
 
     class Staff {
-        constructor(clef, x, y, length, canvas) {
+        constructor(clef, x, y, length, canvas, ShowHideButton) {
             this.x = x
-            this.y = y
+            this.y = y + 80
             this.length = length
             this.currPosition = 10;
             this.clef = clef;
             this.notes = [];
             this.canvas = canvas;
+            if (ShowHideButton){
+                const showButton = document.createElement('button');
+                showButton.innerHTML = "Show Notes";
+                showButton.style.position = "absolute";
+                showButton.style.left = this.canvas.style.left;
+                showButton.style.top = 250 + parseInt(this.canvas.style.top) + "px";
+                const hideButton = document.createElement('button');
+                hideButton.innerHTML = "Hide Notes";
+                hideButton.style.position = "absolute";
+                hideButton.style.left = 100 + parseInt(this.canvas.style.left) + "px";
+                hideButton.style.top = 250 + parseInt(this.canvas.style.top) + "px";
+                const div = document.getElementById('example');
+                div.appendChild(showButton);
+                div.appendChild(hideButton);
+                _showAll(this, showButton);
+                _hideAll(this, hideButton);
+            }
         }
 
         addNote(fs, note, length) {
@@ -148,8 +168,7 @@ const log = console.log;
         }
 
         addBarLine(){
-            const canvas = document.getElementById(this.canvas); 
-            const context = canvas.getContext('2d');
+            const context = this.canvas.getContext('2d');
             this.currPosition += 10;
             context.lineWidth = 2;
             context.beginPath();
@@ -160,8 +179,7 @@ const log = console.log;
         }
 
         addRest(length){
-            const canvas = document.getElementById(this.canvas); 
-            const context = canvas.getContext('2d');
+            const context = this.canvas.getContext('2d');
             context.fillStyle = 'black';
             this.currPosition += 20;
             if (length == "whole"){
@@ -172,14 +190,12 @@ const log = console.log;
             }
             else if (length = "quarter"){
                 context.font = '75px Arial';
-                // const rest = "\uD834\uDD3D";
                 context.lineWidth = 4;
                 context.beginPath();
                 context.moveTo(this.x + this.currPosition + 2, this.y + 72);
                 context.quadraticCurveTo(this.x + this.currPosition - 12, this.y + 53, this.x + this.currPosition + 10, this.y + 58);
                 context.quadraticCurveTo(this.x + this.currPosition - 10, this.y + 37, this.x + this.currPosition + 5, this.y + 33);
                 context.quadraticCurveTo( this.x + this.currPosition + 13, this.y + 30, this.x + this.currPosition, this.y + 15);
-                // context.fillText(rest, this.x + this.currPosition - 40, this.y + 70);
                 context.stroke();
                 context.closePath();
             }
@@ -187,8 +203,7 @@ const log = console.log;
         }
 
         draw(){
-            const canvas = document.getElementById(this.canvas); 
-            const context = canvas.getContext('2d');
+            const context = this.canvas.getContext('2d');
             context.fillStyle = 'black';
             context.strokeStyle = 'black';
             context.lineWidth = 2;
@@ -216,50 +231,46 @@ const log = console.log;
                 context.fillText(clef, this.x + 5, this.y + 80);
             }
         }
+    }
 
-        showAll(id){
-            const canvas = document.getElementById(this.canvas); 
-            const context = canvas.getContext('2d');
-            const showButton = document.getElementById(id);
-            const s = this;
-            showButton.onclick = function(){
-                s.notes.forEach(
-                    function(note){
-                        if (!note.clicked){
-                            context.font = '20px Arial';
-                            context.fillStyle = 'black';
-                            if (note.fs == "sharp"){
-                                context.fillText(note.note + "#", note.pos[0], s.y - 65);
-                            } 
-                            else if (note.fs == "flat"){
-                                context.fillText(note.note + "b", note.pos[0], s.y - 65);
-                            }
-                            else{
-                                context.fillText(note.note, note.pos[0], s.y - 65);
-                            }
-                            note.clicked = true;
+    function _showAll(staff, showButton){
+        const context = staff.canvas.getContext('2d');
+        const s = staff;
+        showButton.onclick = function(){
+            s.notes.forEach(
+                function(note){
+                    if (!note.clicked){
+                        context.font = '20px Arial';
+                        context.fillStyle = 'black';
+                        if (note.fs == "sharp"){
+                            context.fillText(note.note + "#", note.pos[0], s.y - 65);
+                        } 
+                        else if (note.fs == "flat"){
+                            context.fillText(note.note + "b", note.pos[0], s.y - 65);
                         }
+                        else{
+                            context.fillText(note.note, note.pos[0], s.y - 65);
+                        }
+                        note.clicked = true;
                     }
-                )
-            }
+                }
+            )
         }
+    }
 
-        hideAll(id){
-            const canvas = document.getElementById(this.canvas); 
-            const context = canvas.getContext('2d');
-            const showButton = document.getElementById(id);
-            const s = this;
-            showButton.onclick = function(){
-                s.notes.forEach(
-                    function(note){
-                        if (note.clicked){
-                            context.fillStyle = 'white';
-                            context.fillRect(note.pos[0], s.y - 82, 40, 20);
-                            note.clicked = false;
-                        }
+    function _hideAll(staff, hideButton){
+        const context = staff.canvas.getContext('2d');
+        const s = staff;
+        hideButton.onclick = function(){
+            s.notes.forEach(
+                function(note){
+                    if (note.clicked){
+                        context.fillStyle = 'white';
+                        context.fillRect(note.pos[0], s.y - 82, 40, 20);
+                        note.clicked = false;
                     }
-                )
-            }
+                }
+            )
         }
     }
 
@@ -276,8 +287,7 @@ const log = console.log;
         }
 
         draw(x, y, position){
-            const canvas = document.getElementById(this.canvas);
-            const context = canvas.getContext('2d');
+            const context = this.canvas.getContext('2d');
             context.font = '35px Arial';
             context.fillStyle = 'black';
             const where = _findNotePosition(this.clef, this.note, position);
@@ -286,9 +296,6 @@ const log = console.log;
                 const sharp = "\u266F";
                 context.fillText(sharp, x + where[0] + 5, y + where[1]);
                 if (this.length == "quarter"){
-                    // const note = "\uD834\uDD5F";
-                    // context.font = '75px Arial';
-                    // context.fillText(note, x + where[0] + 20, y + where[1]);
                     context.beginPath();
                     if (where[1] > 40) {
                         context.moveTo(x + where[0] + 44, y + where[1] - 5);
@@ -307,9 +314,6 @@ const log = console.log;
                     context.fill()
                 } 
                 else if (this.length == "half"){
-                    // const note = "\uD834\uDD5E";
-                    // context.font = '75px Arial';
-                    // context.fillText(note, x + where[0] + 20, y + where[1]);
                     context.beginPath();
                     if (where[1] > 40) {
                         context.moveTo(x + where[0] + 44, y + where[1] - 5);
@@ -356,7 +360,6 @@ const log = console.log;
             }
             else if (this.fs == "flat"){
                 context.font = '40px Arial';
-                // const flat = "\u266D";
                 context.fillStyle = 'black';
                 context.lineWidth = 2.5;
                 context.beginPath();
@@ -366,11 +369,7 @@ const log = console.log;
                 context.quadraticCurveTo(x + where[0] + 12, y + where[1] - 15, x + where[0] + 5, y + where[1] - 10);
                 context.stroke();
                 context.closePath();
-                // context.fillText(flat, x + where[0] + 5, y + where[1]);
                 if (this.length == "quarter"){
-                    // context.font = '75px Arial';
-                    // const note = "\uD834\uDD5F";
-                    // context.fillText(note, x + where[0] + 20, y + where[1]);
                     context.beginPath();
                     if (where[1] > 40) {
                         context.moveTo(x + where[0] + 44, y + where[1] - 5);
@@ -389,9 +388,6 @@ const log = console.log;
                     context.fill()
                 } 
                 else if (this.length == "half"){
-                    // context.font = '75px Arial';
-                    // const note = "\uD834\uDD5E";
-                    // context.fillText(note, x + where[0] + 20, y + where[1]);
                     context.beginPath();
                     if (where[1] > 40) {
                         context.moveTo(x + where[0] + 44, y + where[1] - 5);
@@ -439,9 +435,6 @@ const log = console.log;
             }
             else {
                 if (this.length == "quarter"){
-                    // context.font = '75px Arial';
-                    // const note = "\uD834\uDD5F";
-                    // context.fillText(note, x + where[0] + 20, y + where[1]);
                     context.beginPath();
                     if (where[1] > 40) {
                         context.moveTo(x + where[0] + 44, y + where[1] - 5);
@@ -460,9 +453,6 @@ const log = console.log;
                     context.fill()
                 } 
                 else if (this.length == "half"){
-                    // context.font = '75px Arial';
-                    // const note = "\uD834\uDD5E";
-                    // context.fillText(note, x + where[0] + 20, y + where[1]);
                     context.beginPath();
                     if (where[1] > 40) {
                         context.moveTo(x + where[0] + 44, y + where[1] - 5);
@@ -577,8 +567,7 @@ const log = console.log;
         }
 
         draw(x, y){
-            const canvas = document.getElementById(this.canvas);
-            const context = canvas.getContext('2d');
+            const context = this.canvas.getContext('2d');
             context.font = 'bold 54px serif';
             context.fillText(this.top, x + 80 + this.position, y + 38);
             context.fillText(this.bottom, x + 80 + this.position, y + 78);
@@ -593,8 +582,7 @@ const log = console.log;
             this.canvas = canvas;
         }
         draw(x, y){
-            const canvas = document.getElementById(this.canvas);
-            const context = canvas.getContext('2d');
+            const context = this.canvas.getContext('2d');
             context.font = '40px Arial';
             var pos = 0;
             var clef = this.clef
@@ -605,8 +593,6 @@ const log = console.log;
                     context.fillText(sharp, where[0] + pos + x, where[1] + y + 4);
                 }
                 else if (note.slice(2) == "b"){
-                    // const flat = "\u266D";
-                    // context.fillText(flat, where[0] + pos + x, where[1] + y);
                     context.fillStyle = 'black';
                     context.lineWidth = 2.5;
                     context.beginPath();
@@ -751,7 +737,6 @@ const log = console.log;
 
     function _playNote(note){
 
-        // need to add an additional line for note to sit on
         var frequency;
         if (note == "B1"){
             if (note.fs == "sharp"){
@@ -1108,6 +1093,10 @@ const log = console.log;
             oscillator.stop();
             }, 200);
     }
+
+    // class MusicQuiz{
+        
+    // }
 
     global.MusicDisplay = global.MusicDisplay || MusicDisplay;
 })(window, window.document);
