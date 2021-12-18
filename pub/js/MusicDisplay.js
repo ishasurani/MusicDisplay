@@ -122,9 +122,9 @@ const log = console.log;
 
     class Staff {
         constructor(clef, x, y, length, canvas, ShowHideButton) {
-            this.x = x
-            this.y = y + 80
-            this.length = length
+            this.x = x;
+            this.y = y + 80;
+            this.length = length;
             this.currPosition = 10;
             this.clef = clef;
             this.notes = [];
@@ -132,14 +132,28 @@ const log = console.log;
             if (ShowHideButton){
                 const showButton = document.createElement('button');
                 showButton.innerHTML = "Show Notes";
+                showButton.style.padding = "8px";
                 showButton.style.position = "absolute";
+                showButton.style.backgroundColor = "#008CBA";
+                showButton.style.color = "white";
+                showButton.style.border = "0px";
+                showButton.style.borderRadius = "4px";
+                showButton.style.fontSize = "15px";
                 showButton.style.left = this.canvas.style.left;
-                showButton.style.top = 250 + parseInt(this.canvas.style.top) + "px";
+                showButton.style.top = 220 + parseInt(this.canvas.style.top) + "px";
+                showButton.style.cursor = "pointer";
                 const hideButton = document.createElement('button');
                 hideButton.innerHTML = "Hide Notes";
+                hideButton.style.padding = "8px";
                 hideButton.style.position = "absolute";
-                hideButton.style.left = 100 + parseInt(this.canvas.style.left) + "px";
-                hideButton.style.top = 250 + parseInt(this.canvas.style.top) + "px";
+                hideButton.style.backgroundColor = "#008CBA";
+                hideButton.style.color = "white";
+                hideButton.style.border = "0px";
+                hideButton.style.borderRadius = "4px";
+                hideButton.style.fontSize = "15px";
+                hideButton.style.left = 120 + parseInt(this.canvas.style.left) + "px";
+                hideButton.style.top = 220 + parseInt(this.canvas.style.top) + "px";
+                hideButton.style.cursor = "pointer";
                 const div = document.getElementById('example');
                 div.appendChild(showButton);
                 div.appendChild(hideButton);
