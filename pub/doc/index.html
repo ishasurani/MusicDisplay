@@ -25,7 +25,13 @@
             type='text' />
           <div id='toc'>
             <ul class='list-reset h5 py1-ul'>
-              
+                <li><a
+                  href='#GettingStarted'
+                  class=" toggle-sibling">
+                  Getting Started
+                  <span class='icon'>▸</span>
+                </a>             
+                </li>
                 
                 <li><a
                   href='#musicdisplay'
@@ -130,7 +136,28 @@
           
           <section class='p2 mb2 clearfix bg-white minishadow'>
 
-  
+  <div class='clearfix'>
+
+    <h3 class='fl m0' id='GettingStarted'>
+      Getting Started
+    </h3>
+    
+  </div>
+
+  <p> This library displays music with beginner and learning friendly features. <br>
+    <br> These features include:
+    <ul>
+      <li>Display the note name while a note is hovered over</li>
+      <li>Click on notes to display their note names</li>
+      <li>Click on notes to play their sounds</li>
+      <li>Buttons to show and hide all note names</li>
+    </ul>
+    <br> In order to setup this library the following script needs to be included in the html:
+    <br> &lt;script defer type="text/javascript" src='./js/MusicDisplay.js'>&lt;script&gt;
+    <br>
+    <br> No other external libraries/modules or css files are needed.
+  </p>
+
   <div class='clearfix'>
     
     <h3 class='fl m0' id='musicdisplay'>
@@ -143,7 +170,7 @@
 
   <p>A MusicDisplay object</p>
 
-    <div class='pre p1 fill-light mt0'>new MusicDisplay(divId: any)</div>
+    <div class='pre p1 fill-light mt0'>new MusicDisplay(divId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</div>
   
   
 
@@ -160,8 +187,9 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>divId</span> <code class='quiet'>(any)</code>
-	    
+            <span class='code bold'>divId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+	    the ID of the div that the canvas will be in
+
           </div>
           
         </div>

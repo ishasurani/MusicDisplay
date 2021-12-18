@@ -125,6 +125,7 @@ const log = console.log;
 
     /**
      * A MusicDisplay object
+     * @param {String} divId the ID of the div that the canvas will be in
      */
     class MusicDisplay {
         constructor(divId) {
