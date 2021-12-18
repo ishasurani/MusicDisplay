@@ -76,6 +76,9 @@ const log = console.log;
         )
     }
 
+    /**
+     * A MusicDisplay object
+     */
     class MusicDisplay {
         constructor() {
             this.staves = [];
@@ -86,6 +89,16 @@ const log = console.log;
             div.appendChild(this.canvas);
         }
 
+        /**
+         * This function makes a staff.
+         * @param {String} clef the clef (treble or bass)
+         * @param {number} x the x coordinate of the Staff
+         * @param {number} y the y coordinate of the Staff
+         * @param {number} length the length of the Staff
+         * @param {String} method when the note name should be shown (hover, click, or both)
+         * @param {boolean} ShowHideButton Whether a Show Notes and a Hide Notes Button should be made
+         * @returns {Staff} the new Staff
+         */
         makeStaff(clef, x, y, length, method, ShowHideButton) {
             this.canvas.width = length + 20;
             this.canvas.height = 300;
@@ -120,6 +133,9 @@ const log = console.log;
         }
     }
 
+    /**
+     * A Staff object
+     */
     class Staff {
         constructor(clef, x, y, length, canvas, ShowHideButton) {
             this.x = x;
@@ -162,6 +178,12 @@ const log = console.log;
             }
         }
 
+        /**
+         * This function draws a note.
+         * @param {String} fs flat, sharp, or neither
+         * @param {String} note the note name
+         * @param {String} length note length (whole, half, quarter)
+         */
         addNote(fs, note, length) {
             const newNote = new Note(this.clef, fs, note, length, this.canvas);
             newNote.draw(this.x, this.y, this.currPosition);
@@ -169,18 +191,30 @@ const log = console.log;
             this.notes.push(newNote);
         }
 
+        /**
+         * This function draws the time signature.
+         * @param {String} top number of beats per measure
+         * @param {String} bottom the type of beat
+         */
         addTimeSignature(top, bottom){
             const ts = new TimeSignature(this.clef, top, bottom, this.currPosition, this.canvas);
             ts.draw(this.x, this.y);
             this.currPosition += 120;
         }
 
-        addKeySignature(notes) { // a list of notes like: [E4b, C3#, B3b]
+        /**
+         * This function draws a key signature.
+         * @param {Array} notes an array of notes in key signature (eg. [E4b, C3#, B3b]) 
+         */
+        addKeySignature(notes) {
             const ks = new KeySignature(this.clef, notes, this.canvas);
             ks.draw(this.x, this.y);
             this.currPosition += 20*(notes.length);
         }
 
+        /**
+         * This function draws a bar line.
+         */
         addBarLine(){
             const context = this.canvas.getContext('2d');
             this.currPosition += 10;
@@ -192,6 +226,10 @@ const log = console.log;
             context.closePath();
         }
 
+        /**
+         * This function draws a rest.
+         * @param {String} length the length of the rest (whole, half, quarter)
+         */
         addRest(length){
             const context = this.canvas.getContext('2d');
             context.fillStyle = 'black';
@@ -216,6 +254,9 @@ const log = console.log;
             this.currPosition += 30;
         }
 
+        /**
+         * This function draws the staff and the clef.
+         */
         draw(){
             const context = this.canvas.getContext('2d');
             context.fillStyle = 'black';
