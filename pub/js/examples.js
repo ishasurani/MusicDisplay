@@ -1,15 +1,15 @@
 "use strict";
 
-function openTab(e, exampleNum) {
+function tab(e, exampleNum) {
   
-    const tabcontent = document.getElementsByClassName("tabcontent");
-    for (var i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
+    const content = document.getElementsByClassName("content");
+    for (var i = 0; i < content.length; i++) {
+      content[i].style.display = "none";
     }
   
-    const tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    const tabs = document.getElementsByClassName("tabs");
+    for (i = 0; i < tabs.length; i++) {
+      tabs[i].className = tabs[i].className.replace(" active", "");
     }
   
     document.getElementById(exampleNum).style.display = "block";
@@ -71,7 +71,7 @@ s3.addDoubleBarLine();
 s3.draw();
 
 const md4 = new MusicDisplay('div3');
-const s4 = md4.makeStaff("bass", 600, 180, 580, "click", false, false);
+const s4 = md4.makeStaff("bass", 600, 150, 580, "", false, true);
 s4.addTimeSignature("4", "4");
 s4.addNote("flat", "B3", "whole");
 s4.addBarLine();
@@ -85,38 +85,24 @@ s4.addBarLine();
 s4.addNote("", "C3", "whole");
 s4.addDoubleBarLine();
 s4.draw();
+s4.addMusicQuiz('div3', 600, 350);
 
-
-// s.addKeySignature(["B4b", "E5b"]);
-// s.addTimeSignature("3", "4");
-// s.addNote("", "A3", "whole");
-// s.addNote("sharp", "C4", "quarter");
-// s.addNote("sharp", "D4", "half");
-// s.addBarLine();
-// s.addNote("", "G4", "quarter");
-// s.addNote("flat", "A4", "half");
-// s.addRest("whole");
-// s.addBarLine();
-// s.addNote("sharp", "F5", "whole");
-// s.addNote("", "G5", "half");
-// s.addRest("half");
-// s.addNote("", "A5", "quarter");
-// s.addNote("", "C6", "whole");
-// s.addNote("flat", "D6", "whole");
-// s.draw();
-
-// const s2 = md2.makeStaff("bass", 550, 200, 800, "", true, true);
-// s2.addKeySignature(["C3#", "F3#"]);
-// s2.addTimeSignature("4", "4");
-// s2.addNote("", "F2", "whole");
-// s2.addNote("", "G2", "quarter");
-// s2.addNote("", "A2", "whole");
-// s2.addRest("quarter");
-// s2.addNote("", "B2", "half");
-// s2.addNote("", "C3", "whole");
-// s2.addNote("", "D3", "quarter");
-// s2.addNote("", "E3", "whole");
-// s2.addNote("", "F3", "whole");
-// s2.addNote("", "G3", "quarter");
-// s2.addNote("", "A3", "whole");
-// s2.draw();
+const md5 = new MusicDisplay('div4');
+const s5 = md5.makeStaff("treble", 600, 160, 690, "click", true, false);
+s5.addKeySignature(["B4b", "E5b"]);
+s5.addTimeSignature("4", "4");
+s5.addNote("", "B4", "whole");
+s5.addBarLine();
+s5.addNote("", "B5", "half");
+s5.addNote("", "G5", "quarter");
+s5.addRest("", "E5", "quarter");
+s5.addBarLine();
+s5.addRest("whole");
+s5.addBarLine();
+s5.addNote("", "C6", "whole");
+s5.addBarLine();
+s5.addNote("", "F5", "half");
+s5.addNote("", "E5", "half");
+s5.addDoubleBarLine();
+s5.draw();
+s5.addMusicQuiz('div4', 600, 450);

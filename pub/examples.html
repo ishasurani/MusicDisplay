@@ -11,11 +11,12 @@
                         <h1 id="examplesTitle">MusicDisplay</h1>
                 </div>
                 <div class="tab">
-                        <button class="tablinks" onclick="openTab(event, 'div1')" id= "default">Example 1</button>
-                        <button class="tablinks" onclick="openTab(event, 'div2')">Example 2</button>
-                        <button class="tablinks" onclick="openTab(event, 'div3')">Example 3</button>
+                        <button class="tabs" onclick="tab(event, 'div1')" id= "default">Example 1</button>
+                        <button class="tabs" onclick="tab(event, 'div2')">Example 2</button>
+                        <button class="tabs" onclick="tab(event, 'div3')">Example 3</button>
+                        <button class="tabs" onclick="tab(event, 'div4')">Example 4</button>
                 </div>
-                <div id="div1" class="tabcontent">
+                <div id="div1" class="content">
                         <h2 class="exampleTitles">Example 1</h2>
                         <div class="code">
                                 <p>
@@ -41,10 +42,10 @@
                         <p id="description1">In the example above, a note name will be displayed while the note is hovered over.
                                 <br> When clicked on, the note name will be displayed, and the note name can be removed by clicking the note again.
                                 <br> All the note names can be displayed by clicking show notes and all of them can be removed by clicking hide notes.
-                                <br> When clicked on, the note will be played. (note: sometimes the first note you choose to click on doesn't play, try again if this happens)
+                                <br> When clicked on, the note will be played.
                         </p>
                 </div>
-                <div id="div2" class="tabcontent">
+                <div id="div2" class="content">
                         <h2 class="exampleTitles">Example 2</h2>
                         <div class="code">
                                 <p>
@@ -88,15 +89,15 @@
                                 In the example above, a note name will be displayed only while the note is hovered over.
                                 <br> The note name will not be displayed when clicked on.
                                 <br> All the note names can be displayed by clicking show notes and all of them can be removed by clicking hide notes.
-                                <br> When clicked on, the note will be played. (note: sometimes the first note you choose to click on doesn't play, try again if this happens)
+                                <br> When clicked on, the note will be played.
                         </p>
                 </div>
-                <div id="div3" class="tabcontent">
+                <div id="div3" class="content">
                         <h2 class="exampleTitles">Example 3</h2>
                         <div class="code">
                                 <p>
                                         const md4 = new MusicDisplay('div3');
-                                        <br>const s4 = md4.makeStaff("bass", 600, 180, 580, "click", false, false);
+                                        <br>const s4 = md4.makeStaff("bass", 600, 150, 580, "", false, true);
                                         <br>s4.addTimeSignature("4", "4");
                                         <br>s4.addNote("flat", "B3", "whole");
                                         <br>s4.addBarLine();
@@ -110,13 +111,50 @@
                                         <br>s4.addNote("", "C3", "whole");
                                         <br>s4.addDoubleBarLine();
                                         <br>s4.draw();
+                                        <br>s4.addMusicQuiz('div3', s4, 600, 350);
                                 </p>
                         </div>
                         <p id="description3">
-                                <br> In the example above, a note name will be displayed only when clicked on.
-                                <br> The Show All and Hide All button feature is off and the playing notes out loud feature is off.
+                                <br> In the example above, no note names are displayed when notes are hovered or clicked on.
+                                <br> The Show All and Hide All button feature is off.
+                                <br> When clicked on, the note will be played.
+                                <br> This example includes a reading music quiz where the user is quizzed on the notes in order from the music displayed.
                         </p>
                 </div>
-                <div id="example"></div>
+                <div id="div4" class="content">
+                        <h2 class="exampleTitles">Example 4</h2>
+                        <div class="code">
+                                <p>
+                                        const md5 = new MusicDisplay('div4');
+                                        <br>const s5 = md5.makeStaff("treble", 600, 160, 690, "click", true, false);
+                                        <br>s5.addKeySignature(["B4b", "E5b"]);
+                                        <br>s5.addTimeSignature("4", "4");
+                                        <br>s5.addNote("", "B4", "whole");
+                                        <br>s5.addBarLine();
+                                        <br>s5.addNote("", "B5", "half");
+                                        <br>s5.addNote("", "G5", "quarter");
+                                        <br>s5.addRest("", "E5", "quarter");
+                                        <br>s5.addBarLine();
+                                        <br>s5.addRest("whole");
+                                        <br>s5.addBarLine();
+                                        <br>s5.addNote("", "C6", "whole");
+                                        <br>s5.addBarLine();
+                                        <br>s5.addNote("", "F5", "half");
+                                        <br>s5.addNote("", "E5", "half");
+                                        <br>s5.addDoubleBarLine();
+                                        <br>s5.draw();
+                                        <br>s5.addMusicQuiz('div4', 600, 450);
+                                </p>
+                        </div>
+                        <div id="d4">
+                                <p>In the example above, a note name will not be shown when hovered over.
+                                        <br> When clicked on, the note name will be displayed, and the note name can be removed by clicking the note again.
+                                        <br> All the note names can be displayed by clicking show notes and all of them can be removed by clicking hide notes.
+                                        <br> The feature where the note is played when clicked on is disabled.
+                                        <br> This example includes a reading music quiz where the user is quizzed on the notes in order from the music displayed.
+                                        <br> Note: This example is probably not very useful since a user can see the answers to the quiz by clicking on the notes.
+                                </p>
+                        </div>
+                </div>
 	</body>
 </html>

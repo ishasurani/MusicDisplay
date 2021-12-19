@@ -109,6 +109,12 @@
                         class='regular pre-open'>
                         #addRest
                       </a></li>
+
+                      <li><a
+                        href='#staffaddmusicquiz'
+                        class='regular pre-open'>
+                        #addMusicQuiz
+                      </a></li>
                       
                       <li><a
                         href='#staffdraw'
@@ -151,6 +157,7 @@
       <li>Click on notes to display their note names</li>
       <li>Click on notes to play their sounds</li>
       <li>Buttons to show and hide all note names</li>
+      <li>A beginner reading music quiz</li>
     </ul>
     <br> In order to setup this library the following script needs to be included in the html:
     <br> &lt;script defer type="text/javascript" src='./js/MusicDisplay.js'>&lt;script&gt;
@@ -171,15 +178,6 @@
   <p>A MusicDisplay object</p>
 
     <div class='pre p1 fill-light mt0'>new MusicDisplay(divId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
 
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
@@ -195,20 +193,6 @@
         </div>
       
     </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
@@ -228,16 +212,6 @@
   <p>This function makes a staff.</p>
 
     <div class='pre p1 fill-light mt0'>makeStaff(clef: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, x: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, y: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, length: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, method: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, ShowHideButton: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>, playNote: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>): <a href="#staff">Staff</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -306,33 +280,12 @@
         </div>
       
     </div>
-  
-
-  
-
-  
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="#staff">Staff</a></code>:
         the new Staff
 
-      
-    
-  
 
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 </section>
 
       </div>
@@ -340,18 +293,9 @@
   
 </div>
 
-  
-
-  
-
-  
 </section>
-
-          
-        
           
           <section class='p2 mb2 clearfix bg-white minishadow'>
-
   
   <div class='clearfix'>
     
@@ -366,16 +310,6 @@
   <p>A Staff object</p>
 
     <div class='pre p1 fill-light mt0'>new Staff(clef: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, x: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, y: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, length: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, canvas: <a href="https://developer.mozilla.org/docs/Web/API/HTMLCanvasElement">HTMLCanvasElement</a>, ShowHideButton: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>, div: <a href="https://developer.mozilla.org/docs/Web/API/HTMLDivElement">HTMLDivElement</a>, playNote: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -454,19 +388,6 @@
       
     </div>
   
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
@@ -486,16 +407,6 @@
   <p>This function draws a note.</p>
 
     <div class='pre p1 fill-light mt0'>addNote(fs: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, note: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, length: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
@@ -529,24 +440,6 @@
       
     </div>
   
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 </section>
 
       </div>
@@ -567,15 +460,6 @@
   <p>This function draws the time signature.</p>
 
     <div class='pre p1 fill-light mt0'>addTimeSignature(top: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, bottom: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
 
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
@@ -600,23 +484,6 @@
         </div>
       
     </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 </section>
@@ -640,16 +507,6 @@
 
     <div class='pre p1 fill-light mt0'>addKeySignature(notes: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>>)</div>
   
-  
-
-  
-  
-  
-  
-  
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
       
@@ -663,24 +520,6 @@
         </div>
       
     </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
   
 </section>
 
@@ -702,33 +541,6 @@
   <p>This function draws a bar line.</p>
 
     <div class='pre p1 fill-light mt0'>addBarLine()</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 </section>
@@ -751,35 +563,7 @@
   <p>This function draws a double bar line.</p>
 
     <div class='pre p1 fill-light mt0'>addDoubleBarLine()</div>
-  
-  
 
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 </section>
 
       </div>
@@ -801,16 +585,6 @@
 
     <div class='pre p1 fill-light mt0'>addRest(length: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</div>
   
-  
-
-  
-  
-  
-  
-  
-  
-
-  
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
       
@@ -824,23 +598,58 @@
         </div>
       
     </div>
+
   
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='staffaddmusicquiz'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>addMusicQuiz(divId, x, y)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
 
   
 
-  
+  <p>This function makes a music quiz.</p>
 
+    <div class='pre p1 fill-light mt0'>addMusicQuiz(divId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, x: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, y: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</div>
   
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>divId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
+      the div ID
 
-  
+          </div>
+          
+        </div>
 
-  
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>x</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    the x coordinate of the Music Quiz
 
-  
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>y</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    the y coordinate of the Music Quiz
 
-  
-
-  
+          </div>
+      
+    </div>
 
   
 </section>
@@ -865,43 +674,12 @@
     <div class='pre p1 fill-light mt0'>draw()</div>
   
   
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 </section>
 
       </div>
     </div>
   
 </div>
-
-  
-
-  
 
   
 </section>

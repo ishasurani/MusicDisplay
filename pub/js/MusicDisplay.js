@@ -144,7 +144,7 @@ const log = console.log;
          * @param {number} x the x coordinate of the Staff
          * @param {number} y the y coordinate of the Staff
          * @param {number} length the length of the Staff
-         * @param {String} method when the note name should be shown (hover, click, or both)
+         * @param {String} method when the note name should be shown. Options: "hover", "click", "both", or "" (never).
          * @param {boolean} ShowHideButton Whether a Show Notes and a Hide Notes Button should be made
          * @param {boolean} playNote Whether the notes be played when clicked
          * @returns {Staff} the new Staff
@@ -348,6 +348,16 @@ const log = console.log;
                 context.closePath();
             }
             this.currPosition += 30;
+        }
+
+        /**
+         * This function makes a music reading quiz.
+         * @param {String} divId the div ID
+         * @param {number} x x coordinate of the music quiz
+         * @param {number} y y coordinate of the music quiz
+         */
+        addMusicQuiz(divId, x, y){
+            const mq = new MusicQuiz(divId, this, x, y);
         }
 
         /**
@@ -1282,9 +1292,129 @@ const log = console.log;
             }, time);
     }
 
-    // class MusicQuiz{
-        
-    // }
+    class MusicQuiz{
+        constructor(divId, staff, x, y){
+            this.div = document.createElement('div');
+            this.div.innerHTML = "<span style=\"font-size: 17px\"><strong> READING MUSIC QUIZ <strong></span><br><br>"
+            this.div.style.height = "150px";
+            this.div.style.width = "400px";
+            this.div.style.position = "absolute";
+            this.div.style.backgroundColor = "lightBlue";
+            this.div.style.borderRadius = "10px";
+            this.div.style.top = y + "px";
+            this.div.style.left = x + "px";
+            this.div.style.padding = "20px";
+            this.div.style.margin = "20px";
+            this.div.style.fontFamily = "sans-serif";
+            this.score = 0;
+            this.total = staff.notes.length;
+            const parentDiv = document.getElementById(divId);
+            const startButton = document.createElement('button');
+            startButton.innerHTML = "Start";
+            startButton.style.backgroundColor = "lightCyan";
+            startButton.style.padding = "10px";
+            startButton.style.fontSize = "15px";
+            startButton.style.borderRadius = "5px";
+            startButton.style.border = "0px";
+            startButton.style.cursor = "pointer";
+            this.div.appendChild(startButton);
+            parentDiv.appendChild(this.div);
+            const mq = this;
+            startButton.onclick = function(){mq.start(0)};
+            this.staff = staff;
+        }
+
+        start(num){
+            const div = this.div;
+            const staff = this.staff;
+            const note = this.staff.notes[num];
+            div.innerHTML = "";
+            const q = document.createElement('span');
+            q.innerHTML = "Enter the name of note " + (num + 1) + "? <br> (Format: \"Bb\", \"C#\", \"D\", etc)<br><br>"
+            div.appendChild(q);
+            const input = document.createElement('input');
+            input.style.padding = "7px";
+            input.style.fontSize = "15px";
+            div.appendChild(input);
+            const b = document.createElement('button');
+            b.innerHTML = "Enter";
+            b.style.backgroundColor = "lightCyan";
+            b.style.padding = "10px";
+            b.style.fontSize = "15px";
+            b.style.borderRadius = "5px";
+            b.style.border = "0px";
+            b.style.cursor = "pointer";
+            b.style.marginLeft = "10px";
+            div.appendChild(b);
+            var fs = note.fs;
+            if (fs == "sharp"){
+                fs = "#";
+            }
+            else if (fs == "flat"){
+                fs = "b";
+            }
+            if (fs == ""){
+                staff.keySignature.forEach(function(n){
+                    if (n.slice(0,1) == note.note.slice(0,1)){
+                        if (n.slice(1,2) == 'b'){
+                            fs = "b";
+                        }
+                        else if (n.slice(1,2) == '#'){
+                            fs = "#";
+                        }
+                    }
+                })
+            }
+            const mq = this;
+            b.onclick = function(){
+                const answer = document.createElement('p');
+                if (input.value == (note.note.slice(0,1) + fs)){
+                    mq.div.style.boxShadow = "0px 0px 4px 5px Green";
+                    answer.innerHTML = "Correct!"
+                    mq.div.appendChild(answer);
+                    mq.score += 1;
+                    num += 1;
+                    if (num > mq.total - 1){
+                        setTimeout(() => {
+                            mq.end();
+                        }, 1000);
+                    }
+                    else {
+                        setTimeout(() => {
+                            mq.start(num);
+                        }, 1000);
+                    }
+                }
+                else{
+                    mq.div.style.boxShadow = "0px 0px 4px 5px Red"
+                    answer.innerHTML = "Incorrect, " + (note.note.slice(0,1) + fs) + " was the correct answer.";
+                    mq.div.appendChild(answer);
+                    num += 1;
+                    if (num > mq.total - 1){
+                        setTimeout(() => {
+                            mq.end();
+                        }, 1000);
+                    }
+                    else {
+                        setTimeout(() => {
+                            mq.start(num);
+                        }, 1000);
+                    }
+                }
+            }
+        }
+
+        end(){
+            this.div.style.boxShadow = "none";
+            this.div.innerHTML = "";
+            const result = document.createElement('p');
+            result.fontSize = "17px";
+            this.div.style.textAlign = "center";
+            result.innerHTML = "<br>Your score is " + this.score + " out of " + this.total + "!"
+            this.div.appendChild(result);
+        }
+    }
 
     global.MusicDisplay = global.MusicDisplay || MusicDisplay;
+
 })(window, window.document);

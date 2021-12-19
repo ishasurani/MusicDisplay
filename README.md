@@ -15,6 +15,7 @@ This library displays music with beginner and learning friendly features. <br>
       <li>Click on notes to display their note names</li>
       <li>Click on notes to play their sounds</li>
       <li>Buttons to show and hide all note names</li>
+      <li>A beginner reading music quiz</li>
     </ul>
 In order to setup this library the following script needs to be included in the html:
 <br>

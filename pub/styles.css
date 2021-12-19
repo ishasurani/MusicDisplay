@@ -16,7 +16,6 @@
 
 .button1{
     padding: 10px;
-    /* background-color: #008CBA; */
     background-color: dimgrey;
     color: white;
     border: 0px;
@@ -53,13 +52,13 @@ body{
     margin: 0px;
 }
 
-.tab {
+.tab{
     overflow: hidden;
     border: 1px grey;
     background-color: dimgrey;
-  }
+}
   
-  .tab button {
+.tab button {
     background-color: dimgrey;
     color: white;
     float: left;
@@ -67,22 +66,23 @@ body{
     cursor: pointer;
     padding: 15px;
     font-size: 15px;
-  }
+}
   
-  .tab button:hover {
+.tab button:hover {
     background-color: darkgray;
-  }
+}
   
-  .tab button.active {
+.tab button.active {
     background-color: darkgray;
-  }
+}
   
-  .tabcontent {
+.content {
     padding-left: 20px;
     padding-top: 5px;
-  }
+    padding-bottom: 10px;
+}
   
-  .code{
+.code{
     background-color: rgb(188, 233, 233);
     font-family: sans-serif;
     float: left;
@@ -91,21 +91,23 @@ body{
     line-height: 140%;
     margin-bottom: 20px;
     border-radius: 10px;
-  }
+    margin-left: 20px;
+}
 
-  .exampleTitles{
+.exampleTitles{
     font-family: sans-serif;
-  }
+    margin-left: 20px;
+}
 
-  #description1{
-      position: absolute;
-      top: 450px;
-      left: 600px;
-      font-family: sans-serif;
-      line-height: 130%;
-  }
+#description1{
+    position: absolute;
+    top: 450px;
+    left: 600px;
+    font-family: sans-serif;
+    line-height: 130%;
+}
 
-  #description2{
+#description2{
     position: absolute;
     top: 720px;
     left: 600px;
@@ -115,8 +117,17 @@ body{
 
 #description3{
     position: absolute;
-    top: 380px;
+    top: 550px;
     left: 600px;
     font-family: sans-serif;
+    line-height: 130%;
+}
+
+#d4{
+    position: absolute;
+    top: 660px;
+    left: 600px;
+    font-family: sans-serif;
+    margin-bottom: 60px;
     line-height: 130%;
 }
