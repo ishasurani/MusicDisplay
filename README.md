@@ -1,4 +1,4 @@
-# js-library-suraniis
+# MusicDisplay Javascript Library
 
 Landing Page:
 https://music-display.herokuapp.com/
